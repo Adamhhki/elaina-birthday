@@ -23,7 +23,6 @@ function scrollToSection(id: string) {
 }
 
 function Reveal({ children, className = '', delay = 0, from = 'up', kind = 'text' }: { children: ReactNode; className?: string; delay?: number; from?: 'left' | 'right' | 'up' | 'down' | 'right-down'; kind?: 'text' | 'image' | 'bubble' | 'ornament' }) {
-  const reducedMotion = useReducedMotion();
   const compact = window.matchMedia('(max-width: 760px)').matches;
   const distance = compact ? 24 : Math.min(52, Math.max(40, window.innerWidth * 0.035));
   const offset = from === 'left' ? { x: -distance } : from === 'right' ? { x: distance } : from === 'right-down' ? { x: distance * 0.55, y: distance * 0.28 } : from === 'down' ? { y: -16 } : { y: kind === 'image' ? 16 : 12 };
@@ -31,10 +30,10 @@ function Reveal({ children, className = '', delay = 0, from = 'up', kind = 'text
   return (
     <motion.div
       className={className}
-      initial={reducedMotion ? false : initial}
+      initial={initial}
       whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, rotate: 0 }}
       viewport={{ once: true, amount: 0.16 }}
-      transition={{ duration: reducedMotion ? 0 : kind === 'image' ? 0.92055 : kind === 'bubble' ? 0.61731 : kind === 'ornament' ? 0.503595 : 0.6498, delay: reducedMotion ? 0 : delay, ease: kind === 'image' ? imageEase : ease }}
+      transition={{ duration: kind === 'image' ? 1.0586325 : kind === 'bubble' ? 0.7099065 : kind === 'ornament' ? 0.57913425 : 0.74727, delay, ease: kind === 'image' ? imageEase : ease }}
     >
       {children}
     </motion.div>
@@ -153,31 +152,30 @@ function useVelocityParallax(enabled: boolean) {
 }
 
 function Hero({ entered }: { entered: boolean }) {
-  const reducedMotion = useReducedMotion();
   return (
       <section id="home" data-scroll-layer="0.25" className={`hero-section story-section ${entered ? 'is-entered' : ''}`}>
-      <motion.div className="hero-glow" aria-hidden="true" initial={reducedMotion ? false : { opacity: 0 }} animate={{ opacity: entered ? 1 : 0 }} transition={{ duration: reducedMotion ? 0 : 1.218375 }} />
+      <motion.div className="hero-glow" aria-hidden="true" initial={{ opacity: 0 }} animate={{ opacity: entered ? 1 : 0 }} transition={{ duration: 1.40113125 }} />
       <div className="hero-copy">
-        <motion.div initial={reducedMotion ? false : { opacity: 0, y: 30 }} animate={entered ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }} transition={{ duration: reducedMotion ? 0 : 0.9747, delay: reducedMotion || !entered ? 0 : 0.25, ease }}>
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={entered ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }} transition={{ duration: 1.120905, delay: 0.25, ease }}>
           <SectionLabel>A little birthday story</SectionLabel>
         </motion.div>
-        <motion.h1 initial={reducedMotion ? false : { opacity: 0, y: 50, scale: 0.88 }} animate={entered ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.88 }} transition={{ duration: reducedMotion ? 0 : 1.0965375, delay: reducedMotion || !entered ? 0 : 0.55, ease }}>
+        <motion.h1 initial={{ opacity: 0, y: 50, scale: 0.88 }} animate={entered ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.88 }} transition={{ duration: 1.261018125, delay: 0.55, ease }}>
           Happy Birthday,<br /><em>Elaina.</em>
         </motion.h1>
-        <motion.p className="hero-subtitle" initial={reducedMotion ? false : { opacity: 0, x: 40 }} animate={entered ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }} transition={{ duration: reducedMotion ? 0 : 1.026, delay: reducedMotion || !entered ? 0 : 0.9, ease }}>
+        <motion.p className="hero-subtitle" initial={{ opacity: 0, x: 40 }} animate={entered ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }} transition={{ duration: 1.1799, delay: 0.9, ease }}>
           For the witch who once dreamed of distant lands<br className="desktop-break" /> and turned the pages of a book into a life of her own.
         </motion.p>
-        <motion.button type="button" className="text-link" onClick={() => scrollToSection('elaina')} initial={reducedMotion ? false : { opacity: 0, y: 25 }} animate={entered ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }} transition={{ duration: reducedMotion ? 0 : 0.893475, delay: reducedMotion || !entered ? 0 : 1.2, ease }}>
+        <motion.button type="button" className="text-link" onClick={() => scrollToSection('elaina')} initial={{ opacity: 0, y: 25 }} animate={entered ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }} transition={{ duration: 1.02749625, delay: 1.2, ease }}>
           Step into her story <ArrowRight size={16} />
         </motion.button>
       </div>
-      <motion.div className="hero-art-wrap" initial={reducedMotion ? false : { opacity: 0, x: window.matchMedia('(max-width: 760px)').matches ? 24 : 50, scale: 0.97 }} animate={entered ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: window.matchMedia('(max-width: 760px)').matches ? 24 : 50, scale: 0.97 }} transition={{ duration: reducedMotion ? 0 : 0.9972625, delay: reducedMotion || !entered ? 0 : 0.95, ease: imageEase }}>
+      <motion.div className="hero-art-wrap" initial={{ opacity: 0, x: window.matchMedia('(max-width: 760px)').matches ? 24 : 50, scale: 0.97 }} animate={entered ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: window.matchMedia('(max-width: 760px)').matches ? 24 : 50, scale: 0.97 }} transition={{ duration: 1.146851875, delay: 0.95, ease: imageEase }}>
         <Artwork name="hero" alt="Elaina birthday hero illustration" className="hero-art" />
-        <motion.div className="hero-bubble" initial={reducedMotion ? false : { opacity: 0, y: 12, scale: 0.96 }} animate={entered ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 12, scale: 0.96 }} transition={{ duration: reducedMotion ? 0 : 0.61731, delay: reducedMotion || !entered ? 0 : 1.45, ease }}>
+        <motion.div className="hero-bubble" initial={{ opacity: 0, y: 12, scale: 0.96 }} animate={entered ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 12, scale: 0.96 }} transition={{ duration: 0.7099065, delay: 1.45, ease }}>
           <SpeechBubble>“Today, even the wind feels a little kinder.”</SpeechBubble>
         </motion.div>
-        <motion.span className="hero-sparkle sparkle-one" initial={reducedMotion ? false : { opacity: 0, scale: 0.8, rotate: -8 }} animate={entered ? { opacity: 1, scale: 1, rotate: 0 } : { opacity: 0 }} transition={{ duration: 0.503595, delay: 1.12 }}><Star size={17} /></motion.span>
-        <motion.span className="hero-sparkle sparkle-two" initial={reducedMotion ? false : { opacity: 0, scale: 0.8, rotate: 8 }} animate={entered ? { opacity: 1, scale: 1, rotate: 0 } : { opacity: 0 }} transition={{ duration: 0.5301, delay: 1.28 }}><Sparkles size={20} /></motion.span>
+        <motion.span className="hero-sparkle sparkle-one" initial={{ opacity: 0, scale: 0.8, rotate: -8 }} animate={entered ? { opacity: 1, scale: 1, rotate: 0 } : { opacity: 0 }} transition={{ duration: 0.57913425, delay: 1.12 }}><Star size={17} /></motion.span>
+        <motion.span className="hero-sparkle sparkle-two" initial={{ opacity: 0, scale: 0.8, rotate: 8 }} animate={entered ? { opacity: 1, scale: 1, rotate: 0 } : { opacity: 0 }} transition={{ duration: 0.609615, delay: 1.28 }}><Sparkles size={20} /></motion.span>
       </motion.div>
       <button className="scroll-cue" type="button" onClick={() => scrollToSection('elaina')}><span>Scroll to wander</span><ArrowDown size={15} /></button>
       <span className="hero-index" aria-hidden="true">01 / 05</span>
@@ -267,7 +265,6 @@ function SplashScreen({ onEnter }: { onEnter: () => void }) {
   const reducedMotion = useReducedMotion();
   const deviceMemory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
   const lowPowerDevice = navigator.hardwareConcurrency <= 4 || (deviceMemory !== undefined && deviceMemory <= 4);
-  const simplifyIntro = reducedMotion;
   const pointerStartY = useRef<number | null>(null);
   const handlePointerUp = (event: ReactPointerEvent<HTMLDivElement>) => {
     const start = pointerStartY.current;
@@ -298,15 +295,15 @@ function SplashScreen({ onEnter }: { onEnter: () => void }) {
     >
       <div className="splash-orbit splash-orbit-one" aria-hidden="true" />
       <div className="splash-orbit splash-orbit-two" aria-hidden="true" />
-      <motion.div className="splash-content" initial={simplifyIntro ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: simplifyIntro ? 0 : 1.5, ease }}>
-        <motion.div className="splash-icon-row" aria-hidden="true" initial={simplifyIntro ? false : 'hidden'} animate="visible" variants={{ hidden: {}, visible: { transition: { staggerChildren: simplifyIntro ? 0 : .25 } } }}>
-          {[Sparkles, Feather, Star].map((Icon, index) => <motion.div key={index} className="splash-icon" variants={{ hidden: { opacity: 0, scale: .5, y: 40 }, visible: { opacity: 1, scale: 1, y: 0 } }} transition={{ duration: simplifyIntro ? 0 : 1.2, ease }} animate={simplifyIntro || lowPowerDevice ? undefined : { y: [0, -6, 0] }}><Icon size={20} strokeWidth={1.35} /></motion.div>)}
+      <motion.div className="splash-content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5, ease }}>
+        <motion.div className="splash-icon-row" aria-hidden="true" initial="hidden" animate="visible" variants={{ hidden: {}, visible: { transition: { staggerChildren: .25 } } }}>
+          {[Sparkles, Feather, Star].map((Icon, index) => <motion.div key={index} className="splash-icon" variants={{ hidden: { opacity: 0, scale: .5, y: 40 }, visible: { opacity: 1, scale: 1, y: 0 } }} transition={{ duration: 1.2, ease }} animate={reducedMotion || lowPowerDevice ? undefined : { y: [0, -6, 0] }}><Icon size={20} strokeWidth={1.35} /></motion.div>)}
         </motion.div>
         <div className="splash-heading">
-          <motion.span className="splash-kicker" initial={simplifyIntro ? false : { opacity: 0, x: 80 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: simplifyIntro ? 0 : .9, duration: simplifyIntro ? 0 : 1.2, ease }}>A little birthday story</motion.span>
-          <motion.h1 id="splash-title" initial={simplifyIntro ? false : { opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: simplifyIntro ? 0 : 1.3, duration: simplifyIntro ? 0 : 1.2, ease }}>Elaina</motion.h1>
+          <motion.span className="splash-kicker" initial={{ opacity: 0, x: 80 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: .9, duration: 1.2, ease }}>A little birthday story</motion.span>
+          <motion.h1 id="splash-title" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.3, duration: 1.2, ease }}>Elaina</motion.h1>
         </div>
-        <motion.div className="splash-title-card" initial={simplifyIntro ? false : { opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: simplifyIntro ? 0 : 1.5, duration: simplifyIntro ? 0 : 1.2, ease }}>The Ashen Witch</motion.div>
+        <motion.div className="splash-title-card" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.5, duration: 1.2, ease }}>The Ashen Witch</motion.div>
         <span className="splash-rule" aria-hidden="true"><i /><i /><i /></span>
         <p className="splash-invitation">A little world, made for the witch who never stopped chasing the horizon.</p>
       </motion.div>
@@ -318,7 +315,6 @@ function SplashScreen({ onEnter }: { onEnter: () => void }) {
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [heroEntered, setHeroEntered] = useState(false);
-  const reducedMotion = useReducedMotion();
   useVelocityParallax(!showSplash);
   const enterStory = () => {
     setShowSplash(false);
@@ -353,9 +349,9 @@ export default function App() {
           <motion.div
             className="splash-transition"
             initial={{ y: 0 }}
-            animate={{ y: 0 }}
-            exit={{ y: reducedMotion ? 0 : '-100%' }}
-            transition={{ duration: reducedMotion ? 0 : 1, ease: [0.76, 0, 0.24, 1] }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ y: '-100%' }}
+            transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
           >
             <SplashScreen onEnter={enterStory} />
           </motion.div>
