@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent, ReactNode } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { ArrowDown, ArrowRight, ArrowUp, Feather, Sparkles, Star } from 'lucide-react';
 import { ELAINA_ASSETS } from './data/elainaAssets';
 
@@ -17,7 +17,7 @@ const sections = [
 
 function scrollToSection(id: string) {
   document.getElementById(id)?.scrollIntoView({
-    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+    behavior: 'smooth',
     block: 'start',
   });
 }
@@ -111,8 +111,6 @@ function Navbar() {
 function useVelocityParallax(enabled: boolean) {
   useEffect(() => {
     if (!enabled) return;
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (reducedMotion.matches) return;
     const layers = Array.from(document.querySelectorAll<HTMLElement>('[data-scroll-layer]'));
     const depths = layers.map((layer) => Number(layer.dataset.scrollLayer) || 1);
     const original = layers.map((layer) => layer.style.transform);
@@ -262,7 +260,6 @@ function Finale() {
 }
 
 function SplashScreen({ onEnter }: { onEnter: () => void }) {
-  const reducedMotion = useReducedMotion();
   const deviceMemory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
   const lowPowerDevice = navigator.hardwareConcurrency <= 4 || (deviceMemory !== undefined && deviceMemory <= 4);
   const pointerStartY = useRef<number | null>(null);
@@ -297,17 +294,17 @@ function SplashScreen({ onEnter }: { onEnter: () => void }) {
       <div className="splash-orbit splash-orbit-two" aria-hidden="true" />
       <motion.div className="splash-content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5, ease }}>
         <motion.div className="splash-icon-row" aria-hidden="true" initial="hidden" animate="visible" variants={{ hidden: {}, visible: { transition: { staggerChildren: .25 } } }}>
-          {[Sparkles, Feather, Star].map((Icon, index) => <motion.div key={index} className="splash-icon" variants={{ hidden: { opacity: 0, scale: .5, y: 40 }, visible: { opacity: 1, scale: 1, y: 0 } }} transition={{ duration: 1.2, ease }} animate={reducedMotion || lowPowerDevice ? undefined : { y: [0, -6, 0] }}><Icon size={20} strokeWidth={1.35} /></motion.div>)}
+          {[Sparkles, Feather, Star].map((Icon, index) => <motion.div key={index} className="splash-icon" variants={{ hidden: { opacity: 0, scale: .5, y: 40 }, visible: { opacity: 1, scale: 1, y: 0 } }} transition={{ duration: 1.2, ease }} animate={lowPowerDevice ? undefined : { y: [0, -6, 0] }}><Icon size={20} strokeWidth={1.35} /></motion.div>)}
         </motion.div>
         <div className="splash-heading">
-          <motion.span className="splash-kicker" initial={{ opacity: 0, x: 80 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: .9, duration: 1.2, ease }}>A little birthday story</motion.span>
+          <motion.span className="splash-kicker" initial={{ opacity: 0, x: 80 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: .9, duration: 1.2, ease }}>A little birthday gift</motion.span>
           <motion.h1 id="splash-title" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.3, duration: 1.2, ease }}>Elaina</motion.h1>
         </div>
         <motion.div className="splash-title-card" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.5, duration: 1.2, ease }}>The Ashen Witch</motion.div>
-        <span className="splash-rule" aria-hidden="true"><i /><i /><i /></span>
-        <p className="splash-invitation">A little world, made for the witch who never stopped chasing the horizon.</p>
+        <motion.span className="splash-rule" aria-hidden="true" initial={{ opacity: 0, scaleX: 0.72 }} animate={{ opacity: 1, scaleX: 1 }} transition={{ delay: 1.8, duration: 0.7, ease }}><i /><i /><i /></motion.span>
+        <motion.p className="splash-invitation" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2, duration: 0.7, ease }}>I made this little page for your birthday. Hope it makes you smile.</motion.p>
       </motion.div>
-      <span className="splash-swipe-hint" aria-hidden="true"><ArrowUp size={16} /> SWIPE UP TO BEGIN</span>
+      <span className="splash-swipe-hint" aria-hidden="true"><ArrowUp size={16} /> SWIPE UP TO OPEN</span>
     </div>
   );
 }

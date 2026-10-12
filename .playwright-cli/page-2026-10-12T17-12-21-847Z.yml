@@ -1,0 +1,113 @@
+- main [ref=e3]:
+  - navigation "Main navigation" [ref=e4]:
+    - button "Elaina birthday home" [ref=e5] [cursor=pointer]:
+      - generic [ref=e9]: MAJO NO TABITABI
+    - generic [ref=e10]:
+      - button "Home" [ref=e11] [cursor=pointer]
+      - button "Elaina" [ref=e12] [cursor=pointer]
+      - button "Journey" [ref=e13] [cursor=pointer]
+      - button "Letter" [ref=e14] [cursor=pointer]
+      - button "Finale" [ref=e15] [cursor=pointer]
+  - generic [ref=e16]:
+    - generic [ref=e18]:
+      - paragraph [ref=e20]: A little birthday story
+      - heading [level=1] [ref=e22]:
+        - text: Happy Birthday,
+        - emphasis [ref=e23]: Elaina.
+      - paragraph [ref=e24]: For the witch who once dreamed of distant lands and turned the pages of a book into a life of her own.
+      - button "Step into her story" [ref=e25] [cursor=pointer]
+    - generic [ref=e28]:
+      - img "Elaina birthday hero illustration" [ref=e30]
+      - generic [ref=e32]:
+        - generic [ref=e33]: Fan-made message
+        - text: “Today, even the wind feels a little kinder.”
+    - button "Scroll to wander" [ref=e34] [cursor=pointer]
+    - generic [aria-hidden] [ref=e38]: 01 / 05
+  - generic [ref=e39]:
+    - generic [ref=e40]:
+      - img "Elaina profile illustration" [ref=e42]
+      - generic [ref=e43]: A portrait for the story
+    - generic [ref=e44]:
+      - paragraph [ref=e46]: The traveler
+      - generic [ref=e48]:
+        - heading [level=2] [ref=e49]:
+          - text: Meet
+          - emphasis [ref=e50]: Elaina
+        - paragraph [ref=e51]: The Ashen Witch
+      - paragraph [ref=e53]: Once inspired by the adventures she read as a child, Elaina set out to see the world for herself.
+      - paragraph [ref=e55]: Curious, clever, and never short of an opinion, she travels from one country to the next, finding unexpected encounters and little moments worth remembering.
+      - generic [ref=e56]:
+        - generic [ref=e57]: ✳
+        - generic [ref=e58]: A life written one destination at a time.
+    - generic [ref=e59]: 02 / 05
+  - generic [ref=e60]:
+    - generic [ref=e61]:
+      - paragraph [ref=e62]: Postcards from afar
+      - heading [level=2] [ref=e64]:
+        - text: A witch's
+        - emphasis [ref=e65]: journey
+      - paragraph [ref=e66]: Two little glimpses of a world beyond the horizon.
+    - generic [ref=e71]:
+      - generic [ref=e72]:
+        - img "Elaina on the open road" [ref=e75]
+        - generic [ref=e76]:
+          - generic [ref=e77]: I
+          - generic [ref=e78]:
+            - heading "The open road" [level=3] [ref=e79]
+            - paragraph [ref=e80]: Every adventure begins with a little curiosity.
+          - generic [ref=e81]: ✳
+      - generic [ref=e82]:
+        - img "Elaina discovering a new place" [ref=e85]
+        - generic [ref=e86]:
+          - generic [ref=e87]: II
+          - generic [ref=e88]:
+            - heading "Somewhere new" [level=3] [ref=e89]
+            - paragraph [ref=e90]: A different place, a different perspective, and another tale to take home.
+          - generic [ref=e91]: ✳
+    - generic [ref=e92]: 03 / 05
+  - generic [ref=e93]:
+    - generic [ref=e94]:
+      - paragraph [ref=e96]: A note, just for you
+      - heading [level=2] [ref=e99]:
+        - text: A letter for
+        - emphasis [ref=e100]: Elaina
+      - generic [ref=e102]:
+        - paragraph [ref=e103]: Dear Elaina,
+        - paragraph [ref=e104]: On your birthday, I hope the world gives you a little of the wonder you've spent your life searching for.
+        - paragraph [ref=e105]: May the roads ahead bring beautiful skies, kind strangers, unexpected magic, and plenty of little moments that make you glad you kept wandering.
+        - paragraph [ref=e106]: And on a day like this, even a traveler who is always in a hurry deserves a moment to stop, smile, and celebrate.
+        - paragraph [ref=e107]: Happy birthday, Elaina. May there always be another wonderful page waiting for you.
+        - paragraph [ref=e108]: With affection,Kagenou
+      - generic [ref=e109]: A little birthday wish, sent from afar.
+    - generic [ref=e114]:
+      - img "Elaina letter section illustration" [ref=e117]
+      - generic [ref=e119]:
+        - generic [ref=e120]: Fan-made message
+        - text: “I'll carry your kind words with me.”
+    - generic [ref=e121]: 04 / 05
+  - generic [ref=e122]:
+    - generic [ref=e124]:
+      - paragraph [ref=e126]: Until the next story
+      - heading [level=2] [ref=e129]:
+        - text: May your next yearbe
+        - emphasis [ref=e130]: full of wonder.
+      - generic [ref=e131]:
+        - paragraph [ref=e132]: Happy birthday, Elaina.
+        - paragraph [ref=e133]: May the next chapter bring you new places to discover, stories worth keeping, and a little magic in the ordinary moments along the way.
+    - generic [ref=e134]:
+      - img "Elaina birthday finale illustration" [ref=e136]
+      - generic: ✧
+      - generic: ✳
+      - generic: ✧
+    - generic [ref=e137]:
+      - generic [ref=e138]: A birthday gift made with affection by Kagenou · October 17
+      - button "Back to the beginning ↑" [ref=e139] [cursor=pointer]
+    - generic [ref=e140]: 05 / 05
+  - dialog "Swipe up to enter Elaina's birthday story" [ref=e142]:
+    - generic [ref=e143]:
+      - generic [ref=e156]:
+        - generic [ref=e157]: A little birthday gift
+        - heading "Elaina" [level=1] [ref=e158]
+      - generic [ref=e159]: The Ashen Witch
+      - paragraph [ref=e164]: I made this little page for your birthday. Hope it makes you smile.
+    - generic [aria-hidden]: SWIPE UP TO OPEN

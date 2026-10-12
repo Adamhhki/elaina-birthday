@@ -169,9 +169,3 @@ h1 em, h2 em { color: #8e83b7; font-weight: 400; }
   .site-nav { padding: 0 9px; }.nav-links { gap: 12px; margin-left: 8px; }.nav-links button { font-size: 9px; }
   .hero-section { padding-inline: 19px; }.hero-bubble { right: -9px; width: 180px; }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto !important; }
-  .text-link svg, .scroll-cue svg { transition: none !important; }
-  .text-link:hover svg, .scroll-cue:hover svg { transform: none; }
-}
