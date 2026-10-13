@@ -1,8 +1,39 @@
+# Dependencies
 node_modules/
-build/
-dist/
-coverage/
-.DS_Store
-*.log
+
+# Build output and test coverage
+/dist/
+/build/
+/coverage/
+
+# Tool and package-manager caches
+.vite/
+.turbo/
+.cache/
+.npm/
+.yarn/cache/
+.pnpm-store/
+
+# Local browser inspection artifacts
+.playwright-cli/
+/output/playwright/
+
+# Local environment files (keep the example template)
 .env*
 !.env.example
+
+# Logs and generated TypeScript metadata
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.tsbuildinfo
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
