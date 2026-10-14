@@ -1,6 +1,6 @@
 //=================
-import { createContext, useContext, useEffect, useRef, useState } from 'react';
-import type { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent, ReactNode } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
+import type { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent, ReactNode, WheelEvent as ReactWheelEvent } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowDown, ArrowRight, ArrowUp, Feather, Gift, Sparkles, Star } from 'lucide-react';
 import { ELAINA_ASSETS } from './data/elainaAssets';
@@ -20,7 +20,19 @@ bubble: animationDuration(0.7099065),
 ornament: animationDuration(0.57913425),
 } as const;
 const entrance = { eyebrow: 0.25, heading: 0.55, supporting: 0.9, image: 0.95, link: 1.2, ornament: 1.45 } as const;
-const StoryStartedContext = createContext(false);
+let storyHasStarted = false;
+const storyStartSubscribers = new Set<() => void>();
+function subscribeToStoryStart(callback: () => void) {
+if (storyHasStarted) callback();
+else storyStartSubscribers.add(callback);
+return () => storyStartSubscribers.delete(callback);
+}
+function startStoryRevealObservers() {
+if (storyHasStarted) return;
+storyHasStarted = true;
+storyStartSubscribers.forEach((callback) => callback());
+storyStartSubscribers.clear();
+}
 const isDesktopStory = () => window.matchMedia('(min-width: 1101px)').matches;
 const revealObserverOptions = (threshold: number, warmAhead = false): IntersectionObserverInit => {
 const desktop = isDesktopStory();
@@ -29,6 +41,30 @@ threshold: desktop ? 0.01 : threshold,
 rootMargin: desktop && warmAhead ? `0px 0px ${Math.round(window.innerHeight * 0.08)}px 0px` : '0px',
 };
 };
+const revealObservers = new Map<string, IntersectionObserver>();
+const revealCallbacks = new WeakMap<Element, () => void>();
+function observeOnce(element: Element, options: IntersectionObserverInit, callback: () => void) {
+const key = `${options.threshold ?? 0}|${options.rootMargin ?? '0px'}`;
+let observer = revealObservers.get(key);
+if (!observer) {
+observer = new IntersectionObserver((entries) => {
+entries.forEach((entry) => {
+if (!entry.isIntersecting) return;
+observer?.unobserve(entry.target);
+const reveal = revealCallbacks.get(entry.target);
+revealCallbacks.delete(entry.target);
+reveal?.();
+});
+}, options);
+revealObservers.set(key, observer);
+}
+revealCallbacks.set(element, callback);
+observer.observe(element);
+return () => {
+observer?.unobserve(element);
+revealCallbacks.delete(element);
+};
+}
 const revealDelay = (delay: number) => isDesktopStory() ? 0 : delay;
 const sections = [
 { id: 'splash', label: 'Intro' },
@@ -60,21 +96,16 @@ block: 'start',
 type RevealTechnique = 'default' | 'mask' | 'eyebrow';
 //=================
 function Reveal({ children, className = '', delay = 0, from = 'up', kind = 'text', technique = 'default' }: { children: ReactNode; className?: string; delay?: number; from?: 'left' | 'right' | 'up' | 'down' | 'right-down'; kind?: 'text' | 'image' | 'bubble' | 'ornament'; technique?: RevealTechnique }) {
-const storyStarted = useContext(StoryStartedContext);
 const revealRef = useRef<HTMLDivElement>(null);
 const [isInView, setIsInView] = useState(false);
 useEffect(() => {
 const element = revealRef.current;
-if (!storyStarted || isInView || !element) return;
-const observer = new IntersectionObserver(([entry]) => {
-if (entry.isIntersecting) {
-setIsInView(true);
-observer.disconnect();
-}
-}, revealObserverOptions(0.16, true));
-observer.observe(element);
-return () => observer.disconnect();
-}, [storyStarted, isInView]);
+if (isInView || !element) return;
+let stopObserving = () => {};
+const beginObserving = () => { stopObserving = observeOnce(element, revealObserverOptions(0.16, true), () => setIsInView(true)); };
+const unsubscribe = subscribeToStoryStart(beginObserving);
+return () => { unsubscribe(); stopObserving(); };
+}, [isInView]);
 const compact = window.matchMedia('(max-width: 760px)').matches;
 const distance = compact ? 24 : Math.min(52, Math.max(40, window.innerWidth * 0.035));
 const offset = from === 'left' ? { x: -distance } : from === 'right' ? { x: distance } : from === 'right-down' ? { x: distance * 0.55, y: distance * 0.28 } : from === 'down' ? { y: -16 } : { y: kind === 'image' ? 16 : 12 };
@@ -113,21 +144,16 @@ transition={{ duration: revealDurations[kind], delay: effectiveDelay, ease }}
 }
 //=================
 function SectionAtmosphere({ variant }: { variant: 'hero' | 'profile' | 'journey' | 'letter' | 'finale' | 'keepsake' }) {
-const storyStarted = useContext(StoryStartedContext);
 const atmosphereRef = useRef<HTMLDivElement>(null);
 const [isInView, setIsInView] = useState(false);
 useEffect(() => {
 const element = atmosphereRef.current;
-if (!storyStarted || isInView || !element) return;
-const observer = new IntersectionObserver(([entry]) => {
-if (entry.isIntersecting) {
-setIsInView(true);
-observer.disconnect();
-}
-}, revealObserverOptions(0.08));
-observer.observe(element);
-return () => observer.disconnect();
-}, [storyStarted, isInView]);
+if (isInView || !element) return;
+let stopObserving = () => {};
+const beginObserving = () => { stopObserving = observeOnce(element, revealObserverOptions(0.08), () => setIsInView(true)); };
+const unsubscribe = subscribeToStoryStart(beginObserving);
+return () => { unsubscribe(); stopObserving(); };
+}, [isInView]);
 return (
 <motion.div
 className={`section-atmosphere section-atmosphere-${variant}`}
@@ -142,21 +168,16 @@ transition={{ duration: revealDurations.ornament, delay: isDesktopStory() ? 0 : 
 }
 //=================
 function SectionDoodles({ variant }: { variant: 'hero' | 'profile' | 'journey' | 'letter' | 'finale' | 'keepsake' }) {
-const storyStarted = useContext(StoryStartedContext);
 const doodlesRef = useRef<HTMLDivElement>(null);
 const [isInView, setIsInView] = useState(false);
 useEffect(() => {
 const element = doodlesRef.current;
-if (!storyStarted || isInView || !element) return;
-const observer = new IntersectionObserver(([entry]) => {
-if (entry.isIntersecting) {
-setIsInView(true);
-observer.disconnect();
-}
-}, revealObserverOptions(0.08));
-observer.observe(element);
-return () => observer.disconnect();
-}, [storyStarted, isInView]);
+if (isInView || !element) return;
+let stopObserving = () => {};
+const beginObserving = () => { stopObserving = observeOnce(element, revealObserverOptions(0.08), () => setIsInView(true)); };
+const unsubscribe = subscribeToStoryStart(beginObserving);
+return () => { unsubscribe(); stopObserving(); };
+}, [isInView]);
 
 return (
 <motion.div
@@ -256,7 +277,7 @@ return (
 );
 }
 //=================
-function Navbar() {
+const Navbar = memo(function Navbar() {
 const [active, setActive] = useState('splash');
 useEffect(() => {
 let frame = 0;
@@ -313,7 +334,7 @@ style={{ pointerEvents: onSplash ? 'none' : 'auto' }}
 <button className="nav-gift" type="button" aria-label="Go to birthday wishes" onClick={() => { onNavigate('finale'); scrollToSection('finale'); }}><Gift size={16} /></button>
 </motion.nav>
 );
-}
+});
 //=================
 function useVelocityParallax(enabled: boolean) {
 useEffect(() => {
@@ -321,6 +342,19 @@ if (!enabled || window.matchMedia('(min-width: 1101px)').matches) return;
 const layers = Array.from(document.querySelectorAll<HTMLElement>('[data-scroll-layer]'));
 const depths = layers.map((layer) => Number(layer.dataset.scrollLayer) || 1);
 const original = layers.map((layer) => layer.style.transform);
+const visibleLayers = new Set<HTMLElement>();
+const visibility = new IntersectionObserver((entries) => {
+entries.forEach(({ target, isIntersecting }) => {
+const layer = target as HTMLElement;
+if (isIntersecting) visibleLayers.add(layer);
+else {
+visibleLayers.delete(layer);
+layer.style.transform = original[layers.indexOf(layer)] ?? '';
+layer.style.willChange = '';
+}
+});
+}, { rootMargin: `${window.innerHeight}px 0px` });
+layers.forEach((layer) => visibility.observe(layer));
 let previousY = window.scrollY;
 let previousTime = performance.now();
 let velocity = 0;
@@ -331,23 +365,32 @@ const elapsed = Math.max(time - previousTime, 1);
 previousTime = time;
 velocity *= Math.exp(-elapsed / 115);
 const offset = Math.max(-8, Math.min(8, -velocity * 1.25));
-layers.forEach((layer, index) => {
+visibleLayers.forEach((layer) => {
+const index = layers.indexOf(layer);
 layer.style.transform = `translate3d(0, ${offset * depths[index]}px, 0)`;
 });
 if (Math.abs(velocity) > 0.015) frame = requestAnimationFrame(update);
+else visibleLayers.forEach((layer) => {
+layer.style.transform = original[layers.indexOf(layer)] ?? '';
+layer.style.willChange = '';
+});
 };
 const onScroll = () => {
 const now = performance.now();
 const y = window.scrollY;
 velocity = (y - previousY) / Math.max(now - previousTime, 1);
 previousY = y;
+visibleLayers.forEach((layer) => {
+if (layer.style.willChange !== 'transform') layer.style.willChange = 'transform';
+});
 if (!frame) frame = requestAnimationFrame(update);
 };
-layers.forEach((layer) => { layer.style.willChange = 'transform'; });
 window.addEventListener('scroll', onScroll, { passive: true });
 return () => {
 window.removeEventListener('scroll', onScroll);
 if (frame) cancelAnimationFrame(frame);
+visibility.disconnect();
+visibleLayers.clear();
 layers.forEach((layer, index) => {
 layer.style.transform = original[index];
 layer.style.willChange = '';
@@ -482,7 +525,7 @@ transition={{ duration: revealDurations.ornament, delay: 0.18, ease }}
 );
 }
 //=================
-function MeetElaina() {
+const MeetElaina = memo(function MeetElaina() {
 return (
 <section id="elaina" data-scroll-layer="0.5" className="profile-section story-section">
 <SectionAtmosphere variant="profile" />
@@ -497,14 +540,14 @@ return (
 <span className="section-number">02 / 06</span>
 </section>
 );
-}
+});
 //=================
 const chapters = [
 { number: 'I', title: 'The open road', text: 'Every adventure begins with a little curiosity.', art: 'journeyOne' as const, alt: 'Elaina on the open road' },
 { number: 'II', title: 'Somewhere new', text: 'A different place, a different perspective, and another tale to take home.', art: 'journeyTwo' as const, alt: 'Elaina discovering a new place' },
 ];
 //=================
-function Journey() {
+const Journey = memo(function Journey() {
 return (
 <section id="journey" data-scroll-layer="0.75" className="journey-section story-section">
 <SectionAtmosphere variant="journey" />
@@ -532,9 +575,9 @@ return (
 <span className="section-number">03 / 06</span>
 </section>
 );
-}
+});
 //=================
-function Letter() {
+const Letter = memo(function Letter() {
 return (
 <section id="letter" data-scroll-layer="0.5" className="letter-section story-section">
 <SectionAtmosphere variant="letter" />
@@ -554,9 +597,9 @@ return (
 <span className="section-number">04 / 06</span>
 </section>
 );
-}
+});
 //=================
-function Finale() {
+const Finale = memo(function Finale() {
 return (
 <section id="finale" data-scroll-layer="0.25" className="finale-section story-section">
 <SectionAtmosphere variant="finale" />
@@ -574,9 +617,9 @@ return (
 <span className="section-number">05 / 06</span>
 </section>
 );
-}
+});
 //=================
-function Keepsake() {
+const Keepsake = memo(function Keepsake() {
 return (
 <section id="keepsake" data-scroll-layer="0.5" className="letter-section keepsake-section story-section">
 <SectionAtmosphere variant="keepsake" />
@@ -594,25 +637,35 @@ return (
 <span className="section-number">06 / 06</span>
 </section>
 );
-}
+});
 //=================
 function SplashScreen({ onEnter, active }: { onEnter: () => void; active: boolean }) {
 const deviceMemory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
 const lowPowerDevice = navigator.hardwareConcurrency <= 4 || (deviceMemory !== undefined && deviceMemory <= 4);
 const pointerStartY = useRef<number | null>(null);
+const hasEntered = useRef(false);
+const enterOnce = () => {
+if (!active || hasEntered.current) return;
+hasEntered.current = true;
+onEnter();
+};
 const handlePointerUp = (event: ReactPointerEvent<HTMLDivElement>) => {
 const start = pointerStartY.current;
 pointerStartY.current = null;
-if (active && start !== null && start - event.clientY > 72) onEnter();
+if (active && start !== null && start - event.clientY > 72) enterOnce();
 };
 const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
 if (!active) return;
+if ((event.target as HTMLElement).closest('button')) return;
 pointerStartY.current = event.clientY;
+};
+const handleWheel = (event: ReactWheelEvent<HTMLDivElement>) => {
+if (active && event.deltaY > 0) enterOnce();
 };
 const handleKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
 if (active && (event.key === 'Enter' || event.key === ' ' || event.key === 'ArrowUp')) {
 event.preventDefault();
-onEnter();
+enterOnce();
 }
 };
 return (
@@ -626,6 +679,7 @@ tabIndex={active ? 0 : -1}
 onPointerDown={handlePointerDown}
 onPointerUp={handlePointerUp}
 onPointerCancel={() => { pointerStartY.current = null; }}
+onWheel={handleWheel}
 onKeyDown={handleKeyDown}
 >
 <div className="splash-orbit splash-orbit-one" aria-hidden="true" />
@@ -633,7 +687,7 @@ onKeyDown={handleKeyDown}
 <motion.div className="splash-content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: animationDuration(1), ease }}>
 <motion.h1 id="splash-title" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .2, duration: animationDuration(.9), ease }}>Elaina</motion.h1>
 </motion.div>
-<span className="splash-swipe-hint" aria-hidden="true"><ArrowUp size={23} /></span>
+<motion.span className="splash-swipe-hint" aria-hidden="true" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .2, duration: animationDuration(.9), ease }}><ArrowUp size={23} /></motion.span>
 </div>
 );
 }
@@ -644,6 +698,7 @@ const [heroEntered, setHeroEntered] = useState(false);
 useVelocityParallax(!showSplash);
 useDesktopWheelNavigation(!showSplash);
 const enterStory = () => {
+startStoryRevealObservers();
 setShowSplash(false);
 setHeroEntered(true);
 if (isDesktopStory()) {
@@ -673,7 +728,6 @@ document.addEventListener('keydown', preventPageSelectAll, true);
 return () => document.removeEventListener('keydown', preventPageSelectAll, true);
 }, []);
 return (
-<StoryStartedContext.Provider value={heroEntered}>
 <main className="birthday-page">
 <section id="splash" className="splash-transition story-section" aria-label="Opening splash">
 <SplashScreen onEnter={enterStory} active={showSplash} />
@@ -686,7 +740,6 @@ return (
 <Finale />
 <Keepsake />
 </main>
-</StoryStartedContext.Provider>
 );
 }
 //=================
