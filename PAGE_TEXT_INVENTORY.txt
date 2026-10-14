@@ -1,0 +1,89 @@
+FULL-PAGE TEXT INVENTORY
+Generated from rendered site content and CSS visibility.
+Viewports: Desktop 1440x900 CSS px; Mobile 390x844 CSS px.
+Section coordinates are viewport x/y CSS pixels after that section is aligned at the top; box = rendered width x height.
+VISIBLE/HIDDEN describes visual CSS display/visibility. [SR-hidden] is visible but omitted from assistive technology.
+
+DOCUMENT METADATA (not rendered in the page)
+- Title / Open Graph title / Twitter title: "Happy Birthday, Elaina | A Birthday Page by Kagenou"
+- Description: "A birthday page and personal tribute to Elaina by Kagenou, her fan."
+- Open Graph description: "A personal birthday tribute to Elaina from Kagenou."
+- Twitter description: "A personal birthday page for Elaina, made by Kagenou."
+
+SPLASH / INTRO (initial screen before entering the story)
+- "A BIRTHDAY PAGE BY KAGENOU" | desktop x=583, y=351px, box=264x14px | mobile x=58, y=341px, box=264x14px
+- "Elaina" | desktop x=592, y=378px, box=256x110px | mobile x=110, y=369px, box=169x73px
+- "For my favorite witch." | desktop x=660, y=544px, box=121x20px | mobile x=135, y=497px, box=121x20px
+- "SWIPE UP TO BEGIN" | desktop x=669, y=836px, box=103x12px | mobile x=144, y=780px, box=103x12px
+
+FIXED NAVBAR (after entering the story)
+- "Majo no Tabitabi" | desktop visible | mobile hidden by CSS
+- "Start" (destination: #home)
+- "Elaina" (destination: #elaina)
+- "My Note" (destination: #letter)
+- "Final Wish" (destination: #finale)
+- "Gift" (destination: #keepsake)
+- "Gallery" (destination: #journey)
+
+Home / Section 1
+- "MADE FOR ELAINA" | desktop visible x=302, y=311px, box=527x15px | mobile visible x=24, y=72px, box=342x14px
+- "Happy Birthday, Elaina!" | desktop visible x=302, y=349px, box=527x166px | mobile visible x=24, y=97px, box=342x86px
+- "My favorite witch since 2020. This little birthday page is for you." | desktop visible x=302, y=536px, box=420x26px | mobile visible x=24, y=195px, box=342x42px
+- "Explore the page" | desktop visible x=302, y=591px, box=123x18px | mobile visible x=139, y=256px, box=112x17px
+- "01 / 06" | desktop visible [SR-hidden] x=1330, y=879px, box=38x14px | mobile visible [SR-hidden] x=336, y=814px, box=34x12px
+
+About / Section 2
+- "THE ASHEN WITCH" | desktop visible x=752, y=312px, box=430x15px | mobile visible x=24, y=72px, box=342x14px
+- "Why Elaina?" | desktop visible x=752, y=350px, box=430x65px | mobile visible x=24, y=96px, box=342x41px
+- "MY FAVORITE TRAVELER" | desktop visible x=752, y=432px, box=430x15px | mobile visible x=24, y=144px, box=342x15px
+- "Her curiosity, cool confidence, and the stories behind her travels are what made her stand out to me." | desktop visible x=752, y=469px, box=410x50px | mobile visible x=24, y=170px, box=342x43px
+- "✳ Still my favorite witch." | desktop visible x=752, y=545px, box=430x43px | mobile visible x=24, y=227px, box=342x26px
+- "A portrait of Elaina" (art caption) | desktop visible x=247, y=667px, box=88x24px | mobile hidden by CSS
+- "02 / 06" | desktop visible x=1362, y=879px, box=38x14px | mobile visible x=336, y=816px, box=34x12px
+
+Letter / Section 3
+- "A NOTE FROM KAGENOU" | desktop visible x=272, y=283px, box=470x15px | mobile visible x=104, y=78px, box=183x12px
+- "A note for Elaina" | desktop visible x=273, y=321px, box=470x65px | mobile visible x=98, y=100px, box=194x33px
+- "Dear Elaina," | desktop visible x=273, y=405px, box=470x25px | mobile visible x=32, y=143px, box=327x18px
+- "Happy birthday! I'm glad Majo no Tabitabi introduced me to you." | desktop visible x=273, y=443px, box=470x25px | mobile visible x=32, y=167px, box=327x18px
+- "Your curiosity and confidence made you my favorite witch." | desktop visible x=273, y=480px, box=470x25px | mobile visible x=32, y=191px, box=327x18px
+- "I made this little page just to celebrate you." | desktop visible x=273, y=517px, box=470x25px | mobile visible x=32, y=215px, box=327x18px
+- "— Kagenou" | desktop visible x=273, y=554px, box=470x29px | mobile visible x=32, y=239px, box=327x22px
+- "Made with care by Kagenou." | desktop visible x=273, y=602px, box=470x15px | mobile hidden by CSS
+- "03 / 06" | desktop visible x=1364, y=879px, box=38x14px | mobile visible x=336, y=816px, box=34x12px
+
+End / Section 4
+- "ONE LAST BIRTHDAY NOTE" | desktop visible x=632, y=290px, box=520x15px | mobile visible x=24, y=72px, box=342x14px
+- "You'll always be my favorite." | desktop visible x=632, y=328px, box=520x130px | mobile visible x=24, y=96px, box=342x78px
+- "Happy birthday, Elaina." | desktop visible x=632, y=480px, box=385x25px | mobile visible x=24, y=185px, box=342x21px
+- "This page may be small, but I wanted to make something for your birthday. I'm glad Majo no Tabitabi introduced me to you." | desktop visible x=632, y=532px, box=385x50px | mobile visible x=24, y=216px, box=342x62px
+- "04 / 06" | desktop visible x=1362, y=879px, box=38x14px | mobile visible x=336, y=816px, box=34x12px
+
+Keepsake / Section 5
+- "A LITTLE BIRTHDAY GIFT" | desktop visible x=225, y=329px, box=470x15px | mobile visible x=24, y=72px, box=342x14px
+- "A page just for you." | desktop visible x=226, y=367px, box=470x65px | mobile visible x=24, y=96px, box=342x39px
+- "It's only a little page, but I wanted to do something more than send a birthday message. So I made this for you, Elaina." | desktop visible x=225, y=452px, box=410x50px | mobile visible x=24, y=144px, box=342x62px
+- "✳ Still my favorite witch." | desktop visible x=226, y=528px, box=470x43px | mobile visible x=24, y=218px, box=342x25px
+- "05 / 06" | desktop visible x=1362, y=879px, box=38x14px | mobile visible x=336, y=816px, box=34x12px
+
+Journey / Section 6
+- "FROM MAJO NO TABITABI" | desktop visible x=486, y=140px, box=467x15px | mobile visible x=20, y=72px, box=350x14px
+- "Why I love this series" | desktop visible x=486, y=178px, box=467x65px | mobile visible x=20, y=95px, box=350x38px
+- "A couple of things that made Elaina special to me." | desktop visible x=486, y=249px, box=467x24px | mobile visible x=20, y=138px, box=350x18px
+- "I" | desktop visible x=257, y=695px, box=4x20px | mobile visible x=182, y=307px, box=4x18px
+- "The journeys" | desktop visible x=272, y=695px, box=186x27px | mobile visible x=193, y=307px, box=148x17px
+- "Every place brought a story of its own." | desktop visible x=272, y=728px, box=186x19px | mobile visible x=193, y=329px, box=148x32px
+- "II" | desktop visible x=761, y=695px, box=9x20px | mobile visible x=182, y=618px, box=8x18px
+- "Elaina herself" | desktop visible x=781, y=695px, box=289x27px | mobile visible x=197, y=618px, box=144x17px
+- "Her curiosity and confidence made her unforgettable to me." | desktop visible x=781, y=728px, box=289x19px | mobile visible x=197, y=640px, box=144x47px
+- "POSTCARD 01 · 01 / 02" (decorative, [SR-hidden]) | desktop visible x=235, y=652px, box=395x27px | mobile visible x=29, y=412px, box=126x19px
+- "POSTCARD 02 · 02 / 02" (decorative, [SR-hidden]) | desktop visible x=810, y=652px, box=395x27px | mobile visible x=52, y=730px, box=125x19px
+- "© Kagenou · A birthday page for Elaina" | desktop visible x=158, y=859px, box=1123x14px | mobile visible x=18, y=811px, box=354x20px
+- "06 / 06" | desktop visible x=1362, y=879px, box=38x14px | mobile hidden by CSS
+
+Notes:
+- A text item may be visually present but outside the viewport while another section is open; positions are recorded with its own section aligned at the top.
+- [SR-hidden] is visually shown but has aria-hidden=true.
+- The mobile navbar hides its brand label; the Journey section counter and Letter supporting caption are also hidden by mobile CSS.
+- The intro dialog label is "Swipe up to enter Elaina's birthday page by Kagenou"; the inactive region is "Birthday page for Elaina by Kagenou".
+- Image alt text is excluded; this inventory covers user-facing rendered copy, labels, buttons, section numbers, and decorative textual captions.
