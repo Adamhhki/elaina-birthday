@@ -222,14 +222,12 @@ h1 em, h2 em { color: #8e83b7; font-weight: 400; }
 
 .finale-gfx-slashes i:nth-child(4) { bottom: 20%; right: 3%; width: 38%; }
 .finale-gfx-slashes i:nth-child(5) { bottom: 3%; left: 16%; width: 32%; }
-.finale-art { animation: finale-character-float 6s ease-in-out infinite; }
 .finale-star > span { display: block; animation: finale-star-twinkle 3.2s ease-in-out infinite; }
 .finale-star-b > span { animation-delay: .8s; }
 .finale-star-c > span { animation-delay: 1.5s; }
 .finale-star-b { top: 45%; right: auto; left: 3%; }
 #finale .finale-star-b { display: none; }
 
-@keyframes finale-character-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -7px; } }
 @keyframes finale-star-twinkle { 0%, 100% { opacity: .58; scale: .88; } 50% { opacity: 1; scale: 1.12; } }
 .splash-transition { position: relative; z-index: 0; width: 100%; height: 100vh; height: 100dvh; overflow: hidden; }
 .splash-screen { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 20px; background: radial-gradient(ellipse at 50% 44%, #fff 0%, #fff 34%, #fbf9ff 74%, #fbfaf7 100%); touch-action: none; }
@@ -524,6 +522,7 @@ body, .birthday-page { background: #fffefd; }
   .finale-art-wrap { grid-column: 1; width: 100%; translate: none; }
   .finale-art { width: 100%; height: 370px; min-height: 0; }
   .finale-copy { grid-column: 2; width: 100%; transform: none; }
+  #finale .finale-copy h2 { font-size: clamp(42px, 4.4vw, 58px); }
 }
 /* Mobile compositions are defined at the end of this file. */
 
@@ -568,7 +567,7 @@ body, .birthday-page { background: #fffefd; }
 
 /* Keep the desktop story pages on one shared type and portrait scale. */
 @media (min-width: 1101px) {
-  #letter .letter-copy,
+  #letter .letter-copy { translate: 6% 0; }
   #letter .section-number { translate: 5% 0; }
 
   #letter .letter-bubble { translate: 0 0; }
@@ -622,12 +621,14 @@ body, .birthday-page { background: #fffefd; }
 
   #keepsake .letter-copy,
   #keepsake .keepsake-art-column {
-    translate: -5% 0;
+    translate: -3% 0;
   }
 
   #keepsake .keepsake-art {
     transform: scale(1.1);
   }
+  #keepsake .keepsake-art img { transform: scale(.97); }
+  #keepsake .character-art-backdrop { scale: .95; }
 
   .profile-art img {
     transform: translateY(-5%) scale(.96);
@@ -657,6 +658,10 @@ body, .birthday-page { background: #fffefd; }
   inset: -5% -8%;
   overflow: visible;
 }
+#finale .finale-art img { transform: scale(.880821); }
+#finale .character-art-backdrop { scale: .850482; }
+#letter .letter-art { scale: .99; }
+#letter .letter-art img { transform: scale(.98); }
 .character-art > .artwork-placeholder { z-index: 1; }
 #home .hero-art-wrap::before,
 #letter .letter-art-reveal::before,
@@ -801,7 +806,7 @@ body, .birthday-page { background: #fffefd; }
   #elaina .profile-copy .body-copy { margin: 0; font-size: clamp(8px, 2.35vw, 9px); line-height: 1.48; }
   #elaina .profile-footnote { gap: 5px; margin-top: 7px; font-size: 7px; line-height: 1.35; }
   #elaina .profile-footnote span:first-child { font-size: 14px; }
-  #elaina .profile-gfx-depth { inset: -3% -6%; }
+  #elaina .profile-gfx-depth { inset: -3% -6%; translate: 0 -2% -30px; scale: .98; }
   #elaina .profile-gfx-slab { opacity: .28; }
   #elaina .art-note { display: none; }
 
@@ -881,10 +886,10 @@ body, .birthday-page { background: #fffefd; }
   }
 
   #keepsake .keepsake-copy { min-width: 0; max-width: none; translate: none; }
-  #keepsake .keepsake-copy .section-label { gap: 5px; margin-bottom: 6px; font-size: 6px; letter-spacing: .1em; }
-  #keepsake .keepsake-copy h2 { margin-bottom: 6px; font-size: clamp(21px, 6.3vw, 27px); line-height: 1.04; }
-  #keepsake .keepsake-copy .body-copy { margin-bottom: 0; font-size: clamp(7px, 2.1vw, 8px); line-height: 1.42; }
-  #keepsake .profile-footnote { gap: 4px; margin-top: 6px; font-size: 6px; line-height: 1.25; }
+  #keepsake .keepsake-copy .section-label { gap: 5px; margin-bottom: 6px; font-size: 7px; letter-spacing: .1em; }
+  #keepsake .keepsake-copy h2 { margin-bottom: 6px; font-size: clamp(23px, 6.8vw, 31px); line-height: 1.04; }
+  #keepsake .keepsake-copy .body-copy { margin-bottom: 0; font-size: clamp(8px, 2.35vw, 9px); line-height: 1.48; }
+  #keepsake .profile-footnote { gap: 5px; margin-top: 7px; font-size: 7px; line-height: 1.35; }
   #keepsake .profile-footnote span:first-child { font-size: 13px; }
   #keepsake .keepsake-art-column { width: 100%; max-width: none; margin: 0; translate: none; }
   #keepsake .keepsake-art { width: 100%; height: min(25svh, 178px); min-height: 0; transform: none; }
@@ -1002,9 +1007,9 @@ body, .birthday-page { background: #fffefd; }
   #keepsake .keepsake-copy { text-align: center; }
   #keepsake .keepsake-copy .section-label,
   #keepsake .profile-footnote { justify-content: center; }
-  #keepsake .keepsake-copy .section-label { font-size: 7px; }
-  #keepsake .keepsake-copy h2 { font-size: clamp(22px, 6.4vw, 28px); }
-  #keepsake .keepsake-copy .body-copy { max-width: 390px; margin-inline: auto; font-size: clamp(9px, 2.5vw, 10px); }
+  #keepsake .keepsake-copy .section-label { font-size: 9px; }
+  #keepsake .keepsake-copy h2 { font-size: clamp(34px, 6.5vw, 47px); }
+  #keepsake .keepsake-copy .body-copy { max-width: 390px; margin-inline: auto; font-size: 11px; line-height: 1.55; }
   #keepsake .keepsake-art { height: min(17svh, 145px); }
   #journey .site-footer { right: 16px; left: 16px; }
 }
@@ -1060,7 +1065,7 @@ body, .birthday-page { background: #fffefd; }
   #finale .finale-copy h2 { font-size: clamp(31px, 6vw, 43px); }
   #finale .finale-message p,
   #keepsake .keepsake-copy .body-copy { font-size: 10px; line-height: 1.55; }
-  #keepsake .keepsake-copy h2 { font-size: clamp(31px, 6vw, 43px); }
+  #keepsake .keepsake-copy h2 { font-size: clamp(34px, 6.5vw, 47px); }
 }
 
 @media (max-width: 360px) {
@@ -1078,6 +1083,15 @@ body, .birthday-page { background: #fffefd; }
   #letter .letter-art-column { right: auto; width: 112px; height: 108px; }
   #letter .letter-text { font-size: 7px; }
   #finale, #keepsake { padding-inline: 9px; }
+}
+
+@media (min-width: 1101px) {
+  #home .hero-copy { translate: calc(30% + 4vw) 0; }
+  #home .hero-art-wrap { translate: calc(-15% + 4vw) 0; }
+  #elaina .profile-art-column,
+  #elaina .profile-copy { translate: 1vw 0; }
+  #finale .finale-copy { translate: 5vw 0; }
+  #finale .finale-art-wrap { translate: calc(-15% + 5vw) 0; }
 }
 @media (min-width: 761px) {
 .section-atmosphere-hero { background-color: transparent; }
@@ -1226,7 +1240,7 @@ body, .birthday-page { background: #fffefd; }
     overflow: visible;
     translate: none;
   }
-  #home .hero-art { width: 100%; height: clamp(245px, 39svh, 355px); min-height: 0; transform: scale(1.15); transform-origin: center bottom; }
+  #home .hero-art { width: 100%; height: clamp(245px, 39svh, 355px); min-height: 0; transform: translateY(3%) scale(1.2075); transform-origin: center bottom; }
   #home .hero-bubble { right: 0; bottom: 7%; width: min(62%, 205px); translate: 12% 0; scale: .838; transform-origin: right bottom; }
   #home .speech-bubble { padding: 10px 12px; font-size: 10px; line-height: 1.45; }
   #home .fan-made { margin-bottom: 4px; font-size: 6px; }
@@ -1250,7 +1264,7 @@ body, .birthday-page { background: #fffefd; }
   #elaina .profile-gfx-scene,
   #elaina .profile-art { width: 100%; height: 100%; min-height: 0; }
   #elaina .profile-gfx-scene { transform: scale(1.05); transform-origin: center; }
-  #elaina .profile-art img { transform: translateY(-5%) scale(1.0395); }
+  #elaina .profile-art img { transform: translateY(0) scale(1.17661); }
   #elaina .profile-copy {
     grid-column: 1;
     grid-row: 1;
@@ -1268,7 +1282,7 @@ body, .birthday-page { background: #fffefd; }
   #elaina .profile-copy .body-copy { max-width: 390px; margin: 0 auto; font-size: 13px; line-height: 1.65; }
   #elaina .profile-footnote { justify-content: center; gap: 8px; margin-top: 14px; font-size: 10px; line-height: 1.45; }
   #elaina .profile-footnote span:first-child { font-size: 18px; }
-  #elaina .profile-gfx-depth { inset: -3% -6%; }
+  #elaina .profile-gfx-depth { inset: -3% -6%; translate: 0 -2% -30px; scale: .98; }
   #elaina .profile-gfx-slab { opacity: .28; }
   #elaina .art-note { display: none; }
 
@@ -1285,6 +1299,7 @@ body, .birthday-page { background: #fffefd; }
   #journey .section-heading p { margin: 0; font-size: 12px; line-height: 1.5; }
   #journey .chapter-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; width: 100%; max-width: 500px; min-height: 0; margin: 0; }
   #journey .chapter { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1fr); align-items: center; gap: 10px; min-width: 0; padding: 8px; }
+  #journey .chapter-2 { translate: 0 -13%; }
   #journey .chapter-photo-canvas { width: 100%; margin: 0; padding: 5px 5px 22px; }
   #journey .chapter-art,
   #journey .chapter-2 .chapter-art { width: 100%; height: clamp(140px, 20svh, 176px); min-height: 0; }
@@ -1294,6 +1309,7 @@ body, .birthday-page { background: #fffefd; }
   #journey .chapter-number { font-size: 12px; }
   #journey .chapter-caption h3 { margin-bottom: 5px; font-size: clamp(13px, 3.6vw, 15px); line-height: 1.2; }
   #journey .chapter-caption p { font-size: clamp(10px, 2.8vw, 11px); line-height: 1.45; }
+  #journey .site-footer { translate: 0 -18%; }
   #journey .chapter-star { display: block; }
 
   #letter {
@@ -1331,6 +1347,8 @@ body, .birthday-page { background: #fffefd; }
   }
   #letter .letter-art-reveal,
   #letter .letter-art { width: 100%; height: 100%; min-height: 0; }
+  #letter .letter-art img { transform: translateY(-7%) scale(1.3224708); }
+  #letter .character-art-backdrop { translate: 0 -7% -30px; scale: 1.22094; }
   #letter .letter-bubble { right: -12px; bottom: 15%; width: min(133px, 90%); translate: -32% 0; scale: .729 .802; transform-origin: right bottom; }
   #letter .letter-bubble .speech-bubble { padding: 7px 8px; font-size: 8px; line-height: 1.35; }
   #letter .letter-bubble .fan-made { margin-bottom: 3px; font-size: 5px; }
@@ -1359,6 +1377,8 @@ body, .birthday-page { background: #fffefd; }
   #finale .finale-message p { max-width: 420px; margin: 0 auto 10px; font-size: 13px; line-height: 1.6; }
   #finale .finale-art-wrap { grid-column: 1; grid-row: 2; width: min(88vw, 360px); align-self: center; justify-self: center; translate: none; }
   #finale .finale-art { width: 100%; height: clamp(260px, 40svh, 350px); min-height: 0; }
+  #finale .finale-art img { translate: 2% 0; transform: scale(1.2193953); }
+  #finale .character-art-backdrop { translate: 2% 0; scale: 1.18503; }
   #finale .finale-star { display: block; }
 
   #keepsake {
@@ -1370,12 +1390,14 @@ body, .birthday-page { background: #fffefd; }
   }
   #keepsake .keepsake-copy { grid-column: 1; grid-row: 1; width: 100%; max-width: 450px; height: max-content; align-self: start; translate: none; }
   #keepsake .keepsake-copy .section-label { justify-content: center; gap: 8px; margin-bottom: 10px; font-size: 9px; letter-spacing: .13em; }
-  #keepsake .keepsake-copy h2 { margin-bottom: 10px; font-size: clamp(36px, 9vw, 48px); line-height: 1.07; }
-  #keepsake .keepsake-copy .body-copy { max-width: 410px; margin: 0 auto; font-size: 13px; line-height: 1.6; }
+  #keepsake .keepsake-copy h2 { margin-bottom: 10px; font-size: clamp(39px, 10vw, 50px); line-height: 1.04; }
+  #keepsake .keepsake-copy .body-copy { max-width: 410px; margin: 0 auto; font-size: 13px; line-height: 1.65; }
   #keepsake .profile-footnote { justify-content: center; gap: 8px; margin-top: 12px; font-size: 10px; line-height: 1.4; }
   #keepsake .profile-footnote span:first-child { font-size: 18px; }
   #keepsake .keepsake-art-column { grid-column: 1; grid-row: 2; width: min(88vw, 360px); max-width: none; align-self: center; margin: 0 auto; translate: none; }
   #keepsake .keepsake-art { width: 100%; height: clamp(260px, 40svh, 350px); min-height: 0; transform: none; }
+  #keepsake .keepsake-art img { translate: -3% 0; transform: scale(1.2193953); }
+  #keepsake .character-art-backdrop { scale: 1.1020779; }
   #journey .site-footer { right: 18px; bottom: 13px; left: 18px; padding-top: 8px; font-size: 8px; }
 
   .mobile-page-group .section-number { right: 20px; bottom: 16px; display: block; font-size: 8px; }

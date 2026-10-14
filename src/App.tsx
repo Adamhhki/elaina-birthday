@@ -2,7 +2,7 @@
 import { memo, useEffect, useRef, useState } from 'react';
 import type { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent, ReactNode, WheelEvent as ReactWheelEvent } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { ArrowRight, ArrowUp, Feather, Gift, Sparkles, Star } from 'lucide-react';
+import { ArrowRight, ArrowUp, Gift, Sparkles, Star } from 'lucide-react';
 import { ELAINA_ASSETS } from './data/elainaAssets';
 //=================
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -145,8 +145,8 @@ const sections = [
 { id: 'splash', label: 'Intro' },
 { id: 'home', label: 'Start' },
   { id: 'elaina', label: 'Elaina' },
-{ id: 'letter', label: 'My Note' },
-{ id: 'finale', label: 'Final Wish' },
+{ id: 'letter', label: 'Note' },
+{ id: 'finale', label: 'Wish' },
 { id: 'keepsake', label: 'Gift' },
 { id: 'journey', label: 'Gallery' },
 ];
@@ -785,9 +785,9 @@ return (
 <SectionDoodles variant="profile" />
 <Reveal className="profile-art-column profile-art-column-gfx" from="left" kind="image" delay={entrance.image}><ProfileGfxArtwork /></Reveal>
 <div className="profile-copy">
-<Reveal technique="eyebrow" delay={entrance.eyebrow}><SectionLabel>The Ashen Witch</SectionLabel></Reveal>
-<Reveal technique="mask" delay={entrance.heading}><h2>Why <em>Elaina?</em></h2><p className="eyebrow">My favorite traveler</p></Reveal>
-<Reveal delay={entrance.supporting} from="right"><p className="body-copy">Her curiosity, cool confidence, and the stories behind her travels are what made her stand out to me.</p></Reveal>
+<Reveal technique="eyebrow" delay={entrance.eyebrow}><SectionLabel>THE ASHEN WITCH</SectionLabel></Reveal>
+<Reveal technique="mask" delay={entrance.heading}><h2>Why <em>Elaina?</em></h2><p className="eyebrow">WHAT I LIKE ABOUT HER</p></Reveal>
+<Reveal delay={entrance.supporting} from="right"><p className="body-copy">I like her curiosity, her confidence, and the way every journey brings a new story.</p></Reveal>
 <Reveal className="profile-footnote" delay={entrance.ornament} kind="ornament"><span>✳</span><span>Still my favorite witch.</span></Reveal>
 </div>
 <span className="section-number">02 / 06</span>
@@ -796,8 +796,8 @@ return (
 });
 //=================
 const chapters = [
-{ number: 'I', title: 'The journeys', text: 'Every place brought a story of its own.', art: 'journeyOne' as const, alt: 'Elaina on the open road' },
-{ number: 'II', title: 'Elaina herself', text: 'Her curiosity and confidence made her unforgettable to me.', art: 'journeyTwo' as const, alt: 'Elaina discovering a new place' },
+{ number: 'I', title: 'The journeys', text: 'Every place has its own story.', art: 'journeyOne' as const, alt: 'Elaina on the open road' },
+{ number: 'II', title: 'Elaina herself', text: "She's the reason this series became special to me.", art: 'journeyTwo' as const, alt: 'Elaina discovering a new place' },
 ];
 //=================
 const Journey = memo(function Journey() {
@@ -806,9 +806,9 @@ return (
 <SectionAtmosphere variant="journey" />
 <SectionDoodles variant="journey" />
 <div className="section-heading">
-<Reveal technique="eyebrow" delay={entrance.eyebrow}><SectionLabel>From Majo no Tabitabi</SectionLabel></Reveal>
-<Reveal technique="mask" delay={entrance.heading}><h2>Why I love <em>this series</em></h2></Reveal>
-<Reveal delay={entrance.supporting}><p>A couple of things that made Elaina special to me.</p></Reveal>
+<Reveal technique="eyebrow" delay={entrance.eyebrow}><SectionLabel>FROM MAJO NO TABITABI</SectionLabel></Reveal>
+<Reveal technique="mask" delay={entrance.heading}><h2>Elaina's <em>world</em></h2></Reveal>
+<Reveal delay={entrance.supporting}><p>Two things I'll always love about the series.</p></Reveal>
 </div>
 <div className="journey-route" aria-hidden="true"><span /><i /><span /></div>
 <div className="chapter-grid">
@@ -840,11 +840,9 @@ return (
 <div className="letter-text">
 <Reveal delay={0.82} from="right"><p>Dear Elaina,</p></Reveal>
 <Reveal delay={0.94} from="right"><p>Happy birthday! I'm glad Majo no Tabitabi introduced me to you.</p></Reveal>
-<Reveal delay={1.06} from="right"><p>Your curiosity and confidence made you my favorite witch.</p></Reveal>
-<Reveal delay={1.18} from="right"><p>I made this little page just to celebrate you.</p></Reveal>
+<Reveal delay={1.06} from="right"><p>I hope this little message brings a smile to your day.</p></Reveal>
 <Reveal delay={1.3} from="right"><p className="letter-signoff">— Kagenou</p></Reveal>
 </div>
-<Reveal className="edit-hint" delay={0.28} kind="ornament"><Feather size={13} /> Made with care by Kagenou.</Reveal>
 </div>
 <div className="letter-art-column"><Reveal className="letter-art-reveal" delay={entrance.image} from="right" kind="image"><Artwork name="letter" alt="Elaina letter section illustration" className="letter-art" characterBackdrop /></Reveal></div>
 <span className="section-number">03 / 06</span>
@@ -858,9 +856,9 @@ return (
 <SectionAtmosphere variant="finale" />
 <SectionDoodles variant="finale" />
 <div className="finale-copy">
-<Reveal technique="eyebrow" delay={entrance.eyebrow}><SectionLabel>One last birthday note</SectionLabel></Reveal>
-<Reveal technique="mask" delay={entrance.heading}><h2>You'll always be<br /><em>my favorite.</em></h2></Reveal>
-<Reveal className="finale-message" delay={entrance.supporting}><p>Happy birthday, Elaina.</p><p>This page may be small, but I wanted to make something for your birthday. I'm glad Majo no Tabitabi introduced me to you.</p></Reveal>
+<Reveal technique="eyebrow" delay={entrance.eyebrow}><SectionLabel>A BIRTHDAY WISH</SectionLabel></Reveal>
+<Reveal technique="mask" delay={entrance.heading}><h2>Keep wandering,<br /><em>Elaina.</em></h2></Reveal>
+<Reveal className="finale-message" delay={entrance.supporting}><p>Happy birthday, Elaina.</p><p>I hope we get to see more of your adventures.</p></Reveal>
 </div>
 <Reveal className="finale-art-wrap" from="left" kind="image" delay={0.5}>
 <div className="finale-gfx-slashes" aria-hidden="true"><i /><i /><i /><i /><i /></div>
@@ -878,10 +876,10 @@ return (
 <SectionAtmosphere variant="keepsake" />
 <SectionDoodles variant="keepsake" />
 <div className="letter-copy keepsake-copy">
-<Reveal technique="eyebrow" delay={entrance.eyebrow} from="left"><SectionLabel>A little birthday gift</SectionLabel></Reveal>
-<Reveal technique="mask" delay={entrance.heading} from="left"><h2>A page just <em>for you.</em></h2></Reveal>
-<Reveal delay={entrance.supporting} from="left"><p className="body-copy">It's only a little page, but I wanted to do something more than send a birthday message. So I made this for you, Elaina.</p></Reveal>
-<Reveal className="profile-footnote" delay={entrance.ornament} kind="ornament"><span>✳</span><span>Still my favorite witch.</span></Reveal>
+<Reveal technique="eyebrow" delay={entrance.eyebrow} from="left"><SectionLabel>A LITTLE BIRTHDAY GIFT</SectionLabel></Reveal>
+<Reveal technique="mask" delay={entrance.heading} from="left"><h2>Something I made <em>for you.</em></h2></Reveal>
+<Reveal delay={entrance.supporting} from="left"><p className="body-copy">I wanted to do more than post a birthday wish, so I made this little tribute.</p></Reveal>
+<Reveal className="profile-footnote" delay={entrance.ornament} kind="ornament"><span>✳</span><span>From Kagenou, with love.</span></Reveal>
 </div>
 <Reveal className="keepsake-art-column" from="right" kind="image" delay={entrance.image}>
 <Artwork name="keepsake" alt="Elaina with a small puppet familiar" className="keepsake-art" characterBackdrop />
